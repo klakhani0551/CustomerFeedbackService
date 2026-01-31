@@ -12,7 +12,7 @@ namespace CustomerFeedbackService.Models
 
         [Range(1, 5)]
         public double Rating { get; set; }
-
+        
         [StringLength(500)]
         public string FeedbackComment { get; set; }
 

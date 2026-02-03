@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Runtime.CompilerServices;
 
 namespace CustomerFeedbackService.Models
 {
@@ -12,7 +13,6 @@ namespace CustomerFeedbackService.Models
         public string CustomerName { get; set; }
 
         [Required]
-        [StringLength(10)]
         public int Phone {get; set;}
 
         [Range(1, 5)]

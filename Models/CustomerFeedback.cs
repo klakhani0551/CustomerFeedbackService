@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace CustomerFeedbackService.Models
 {
@@ -9,6 +10,10 @@ namespace CustomerFeedbackService.Models
         [Required]
         [StringLength(100)]
         public string CustomerName { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public int Phone {get; set;}
 
         [Range(1, 5)]
         public double Rating { get; set; }

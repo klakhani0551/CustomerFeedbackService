@@ -20,7 +20,6 @@ namespace CustomerFeedbackService.Controllers
         public async Task<ActionResult<List<CustomerFeedback>>> GetAll()
         {
             return Ok(await _dbcontext.CustomerFeedbacks.ToListAsync());
-
         }
 
         [HttpGet("{id}")]

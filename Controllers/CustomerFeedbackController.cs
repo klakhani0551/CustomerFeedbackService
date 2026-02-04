@@ -40,19 +40,35 @@ namespace CustomerFeedbackService.Controllers
                 return BadRequest(ModelState);
             _dbcontext.CustomerFeedbacks.Add(feedback);
             await _dbcontext.SaveChangesAsync();
-            return CreatedAtAction (nameof(GetById), new {id=feedback.Id}, feedback);
-        }        
+            return CreatedAtAction (nameof(GetById), new {id=feedback.Id}, new
+            {
+                message="Feedback Submitted Successfully.",
+                data=feedback
+            });
+        }    
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, CustomerFeedback feedback)
         {
         if(id != feedback.Id)
-                return BadRequest(ModelState);
+                return BadRequest("No Valid ID found.");
+            var existing = await _dbcontext.CustomerFeedbacks.FindAsync(id);
 
-        _dbcontext.Entry(feedback).State=EntityState.Modified;
+        if (existing == null)
+            
+                return NotFound("Feedback Not Found.");
+                existing.CustomerName=feedback.CustomerName;
+                existing.Ratings=feedback.Ratings;
+                existing.FeedbackComment=feedback.FeedbackComment;
+           
         await _dbcontext.SaveChangesAsync();
 
-        return NoContent();
+        return Ok(new
+        {
+            message="Feedback Updated Successfully.",
+            data = existing
+        });
 
         
     }
@@ -61,9 +77,14 @@ namespace CustomerFeedbackService.Controllers
         {
             var feedback =await _dbcontext.CustomerFeedbacks.FindAsync(id);
             if(feedback==null)
-            return NoContent();
+            return NotFound("Feedback Not Found.");
             _dbcontext.CustomerFeedbacks.Remove(feedback);
             await _dbcontext.SaveChangesAsync();
-            return NoContent();
+
+            return Ok(new
+            {
+                message="Feedback Deleted Successfully.",
+                deleted_Id=id
+            });
         }
 }}

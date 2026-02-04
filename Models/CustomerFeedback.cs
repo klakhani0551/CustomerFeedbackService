@@ -16,7 +16,7 @@ namespace CustomerFeedbackService.Models
         public int Phone {get; set;}
 
         [Range(1, 5)]
-        public double Rating { get; set; }
+        public double Ratings { get; set; }
         
         [StringLength(500)]
         public string FeedbackComment { get; set; }
